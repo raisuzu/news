@@ -3,8 +3,23 @@ import Image from 'next/image';
 import styles from '../weather-news/index.module.scss';
 import Link from 'next/link';
 
+interface Weather {
+  dt: number;
+  main: {
+    temp: number;
+    temp_max: number;
+    temp_min: number;
+  };
+  weather: {
+    main: string;
+    icon: string;
+  }[];
+}
+
 interface Props {
-  weatherNews: any;
+  weatherNews: {
+    list: Weather[];
+  };
 }
 
 const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -18,7 +33,6 @@ const WeatherNews: React.FC<Props> = ({ weatherNews }) => {
   const currentWeatherTemp = weatherNews.list[0].main.temp;
   const currentWeatherIcon = weatherNews.list[0].weather[0].icon;
 
-  // 一日ごとの天気データを抽出
   const dailyWeather = weatherNews.list.filter((_, index) => index % 8 === 0);
 
   return (

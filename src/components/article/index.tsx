@@ -33,6 +33,8 @@ const Article: React.FC<Props> = ({ articles, title }) => {
                   src={article.urlToImage}
                   className={styles.article__img}
                   alt={`${article.title} image`}
+                  width={500}
+                  height={300}
                 />
               )}
             </article>

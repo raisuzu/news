@@ -14,14 +14,29 @@ interface Article {
   urlToImage: string;
 }
 
+interface WeatherNewsType {
+  list: Array<{
+    dt: number;
+    main: {
+      temp: number;
+      temp_max: number;
+      temp_min: number;
+    };
+    weather: Array<{
+      main: string;
+      icon: string;
+    }>;
+  }>;
+}
+
 interface HomeProps {
   topArticles: Article[];
-  weatherNews: any;
+  weatherNews: WeatherNewsType;
   pickupArticles: Article[];
 }
 
 export default function Home(props: HomeProps) {
-  console.log('Home props:', props); // デバッグ用のログ
+  console.log('Home props:', props);
   return (
     <MainLayout>
       <Head>
@@ -59,7 +74,7 @@ export const getStaticProps = async () => {
 
     const topJson = await topRes.json();
     const topArticles: Article[] = topJson?.articles || [];
-    console.log('Top Articles:', topArticles); // デバッグ用のログ
+    console.log('Top Articles:', topArticles);
 
     const lat = 35.4122;
     const lon = 139.413;
@@ -73,8 +88,8 @@ export const getStaticProps = async () => {
     }
 
     const weatherJson = await weatherRes.json();
-    const weatherNews = weatherJson;
-    console.log('Weather News:', weatherNews); // デバッグ用のログ
+    const weatherNews: WeatherNewsType = weatherJson;
+    console.log('Weather News:', weatherNews);
 
     const keyword = 'google';
     const sortBy = 'popularity';
@@ -91,7 +106,7 @@ export const getStaticProps = async () => {
 
     const pickupJson = await pickupRes.json();
     const pickupArticles: Article[] = pickupJson?.articles || [];
-    console.log('Pickup Articles:', pickupArticles); // デバッグ用のログ
+    console.log('Pickup Articles:', pickupArticles);
 
     return {
       props: {
