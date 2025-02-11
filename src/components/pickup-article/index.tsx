@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import moment from 'moment';
 import Props from '../types';
 
-const PickupArticle: React.FC<Props> = ({ articles }) => {
+const PickupArticle: React.FC<Props> = ({ articles = [] }) => {
   return (
     <section className={styles.pickup}>
       <h1 className={styles.article__heading}>PickUp</h1>
@@ -27,6 +27,7 @@ const PickupArticle: React.FC<Props> = ({ articles }) => {
                   key={index}
                   src={article.urlToImage}
                   className={styles.article__img}
+                  alt={`${article.title} image`}
                 />
               )}
             </article>
